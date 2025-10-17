@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { ca } from "zod/locales";
 
 type ConnectionObject = {
     isConnected?: number;
@@ -14,12 +13,16 @@ async function dbConnect(): Promise<void> {
     }
 
     try {
+        if (mongoose.connection.readyState >= 1) {
+      console.log("Already connected (mongoose cached connection)");
+      return;
+    }
         const db = await mongoose.connect(process.env.MONGODB_URI as string);
         connection.isConnected = db.connections[0].readyState;
         console.log("Connected to database");
     }catch (error) {
         console.error("Error connecting to database", error);
-        process.exit(1);
+        // process.exit(1);
     }
 }
 export default dbConnect;
