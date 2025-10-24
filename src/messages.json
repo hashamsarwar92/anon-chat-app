@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Welcome Message",
+        "content": "Hello! Welcome to our application. We're glad to have you here.",
+        "received": "2024-06-01T10:00:00Z"
+    },
+    {
+        "title": "Update Available",
+        "content": "A new update is available. Please update to the latest version for the best experience.",
+        "received": "2024-06-02T15:30:00Z"
+    },
+    {
+        "title": "Scheduled Maintenance",
+        "content": "Our services will be undergoing scheduled maintenance on June 5th from 1 AM to 3 AM UTC.",
+        "received": "2024-06-03T08:45:00Z"
+    }
+]
