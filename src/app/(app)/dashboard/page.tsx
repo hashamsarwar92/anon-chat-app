@@ -1,3 +1,4 @@
+"use client"
 import MessageCard from '@/components/MessageCard';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -87,7 +88,12 @@ const Dashboard = () => {
     }
   }
 
-  const {username} = session?.user as User;
+ 
+
+  if(!session|| !session.user){
+    return <div>Please sign in to view your dashboard</div>
+  }  
+   const {username} = session?.user as User;
   //TODO: do more research
   const baseUrl = `${window.location.protocol}//${window.location.host}`
   const profileUrl = `${baseUrl}/u/${username}`;
@@ -96,10 +102,6 @@ const Dashboard = () => {
     navigator.clipboard.writeText(profileUrl);
     console.log("Profile URL copied to clipboard");
   }
-
-  if(!session|| !session.user){
-    return <div>Please sign in to view your dashboard</div>
-  }  
   return (
     <div className='my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl'>
       <h1 className='text-4xl font-bold mb-4'>User Dashboard</h1>

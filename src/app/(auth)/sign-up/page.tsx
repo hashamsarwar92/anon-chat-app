@@ -55,6 +55,7 @@ const SignUpPage = () => {
           setUsernameMessage(response.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
+          console.log("Error checking username", axiosError);
           setUsernameMessage(
             axiosError.response?.data.message || "Error checking username"
           );

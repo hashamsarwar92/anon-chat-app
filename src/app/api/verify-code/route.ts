@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
     await dbConnect();
     try {
         const {username, code} = await request.json();

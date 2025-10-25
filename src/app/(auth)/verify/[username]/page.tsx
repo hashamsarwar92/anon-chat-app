@@ -18,12 +18,13 @@ const VerifyAccount = () => {
      const form = useForm<z.infer<typeof verifySchema>>({
         resolver: zodResolver(verifySchema),
         defaultValues: {
-            
+            code: "",
         },
       });
 
       const onSubmit = async(data: z.infer<typeof verifySchema>)=>{
         try{
+          console.log("Submitting verification for", params.username, data.code);
             const response = await axios.post('/api/verify-code',{username: params.username, code: data.code})
             console.log(response.data);
             router.replace('/sign-in');
