@@ -38,7 +38,8 @@ const Dashboard = () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>('/api/accept-messages');
-      setValue('acceptMessages', response.data.isAcceptingMessage ?? false);
+      console.log("Fetched accept message:", response.data);
+      setValue('acceptMessages', response.data.isAcceptingMessages ?? false);
     }catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
       console.log("Error fetching accept message", axiosError.response?.data.message);
@@ -76,17 +77,29 @@ const Dashboard = () => {
 
   }, [session, setValue, fetchMessages, fetchAcceptMessage]);
 
-  const handleSwitchChange = async()=>{
-    try{
-      const reponse = await axios.post<ApiResponse>('/api/accept-messages',{
-        acceptMessages: !acceptMessages,
-      });
-      setValue('acceptMessages', !acceptMessages);
-    }catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-      console.log("Error updating accept message", axiosError.response?.data.message);
+  const handleSwitchChange = async () => {
+  try {
+    const response = await axios.post<ApiResponse>("/api/accept-messages", {
+      acceptedMessages: !acceptMessages,
+    });
+setValue("acceptMessages", !acceptMessages);
+    // Update local form state
+    if (response.data.isAcceptingMessages !== undefined) {
+      
+      console.log("Accept message updated successfully");
+    } else {
+      console.warn("Response missing isAcceptingMessage field");
+      console.log("Response data:", response.data);
     }
+  } catch (error) {
+    const axiosError = error as AxiosError<ApiResponse>;
+    console.error(
+      "Error updating accept message:",
+      axiosError.response?.data?.message || axiosError.message
+    );
   }
+};
+
 
  
 
