@@ -49,6 +49,7 @@ const UserPublicPage = () => {
   content: data.content,
 });
     console.log("Response from server:", response.data);
+    form.reset();
     }catch(err){
       console.log("Error sending message:", err);
     }finally{
